@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+User-agent: *
+Disallow: /search/
+Disallow: /filter/
+Disallow: /private/
+
+Sitemap: https://zavodshow.ru/sitemap.xml

@@ -1,0 +1,59 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laraveluser
+      MYSQL_PASSWORD: laravelpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  laravel:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/var/www
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: laravel
+      DB_USERNAME: laraveluser
+      DB_PASSWORD: laravelpassword
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    command: bash -c "php artisan serve --host=0.0.0.0 --port=8000"
+
+  next:
+    build:
+      context: ./frontend
+    command: bash -c "npm install && npm run build && npm start"
+    depends_on:
+      - laravel
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://89.111.141.133:8000
+    networks:
+      - app_network
+
+networks:
+  app_network:
+
+volumes:
+  mysql_data:
