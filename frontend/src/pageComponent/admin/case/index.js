@@ -13,7 +13,7 @@ import {
   Typography,
   Alert,
   Snackbar,
-  Tooltip
+  Tooltip,
 } from "@mui/material";
 import DatePicker from "react-datepicker";
 import { insertCase, updateCase } from "@/api/caseAPI";
@@ -53,11 +53,11 @@ const NewCase = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const searchParams = useSearchParams();
-  
+
   // Helper function to parse the initial data from URL parameters
   const getInitialData = () => {
     if (!searchParams.size) return null;
-    
+
     let data = {};
     searchParams.forEach((value, key) => {
       try {
@@ -87,7 +87,7 @@ const NewCase = () => {
     site: Data?.site || "",
     // equipment: Data?.equipment || [],
     // equipment_type: Data?.equipment_type || [],
-    video: {name: Data?.video} || {},
+    video: { name: Data?.video } || {},
     site_type: Data?.site_type || [],
     images: Data?.images || [],
     eventTitle: Data?.eventTitle || "",
@@ -176,7 +176,13 @@ const NewCase = () => {
       name: "blog_type",
       type: "text",
       placeholder: "Частное",
-      option: ["Все виды мероприятия", "Частное", "Тур", "Корпоративное", "Городское"],
+      option: [
+        "Все виды мероприятия",
+        "Частное",
+        "Тур",
+        "Корпоративное",
+        "Городское",
+      ],
     },
     {
       title: 'Место проведения(Хедлайнер при выборе типа кейса "Тур")',
@@ -200,7 +206,8 @@ const NewCase = () => {
       title: "Meta Title",
       name: "title",
       type: "text",
-      placeholder: "Заголовок страницы для поисковых систем. Рекомендуется не более 250 символов.",
+      placeholder:
+        "Заголовок страницы для поисковых систем. Рекомендуется не более 250 символов.",
     },
     {
       title: "Meta Keyword",
@@ -212,7 +219,8 @@ const NewCase = () => {
       title: "Meta Description",
       name: "description",
       type: "text",
-      placeholder: "Краткое описание страницы для поисковых систем. Рекомендуется не более 250 символов.",
+      placeholder:
+        "Краткое описание страницы для поисковых систем. Рекомендуется не более 250 символов.",
     },
     {
       title: "Город",
@@ -242,8 +250,8 @@ const NewCase = () => {
     "Видео",
     "Одежда сцены",
     "3д-визуализация",
-    "Репетиционная база"
-  ]
+    "Репетиционная база",
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -307,21 +315,19 @@ const NewCase = () => {
       //   message: "Пожалуйста, выберите 3D-визуализацию.",
       // },
       {
-        condition:
-          formData.title.length > 250 ||
-          formData.keyword.length > 250 ,
-        message: "Длина заголовка и ключевых слов не должна превышать 250 символов."
+        condition: formData.title.length > 250 || formData.keyword.length > 250,
+        message:
+          "Длина заголовка и ключевых слов не должна превышать 250 символов.",
       },
       {
-        condition:
-          formData.description.length > 500,
-        message: "Описание не должно превышать 500 символов."
-      }
+        condition: formData.description.length > 500,
+        message: "Описание не должно превышать 500 символов.",
+      },
     ];
 
     for (const validation of validations) {
       if (validation.condition) {
-        console.log('validation:', validation);
+        console.log("validation:", validation);
         setLoading(false);
         setAlertMessage(validation.message);
         setAlertOpen(true);
@@ -372,12 +378,23 @@ const NewCase = () => {
             <Typography> Выбрать видео: {formData.video.name}</Typography>
           )}
 
-          <Dropzone onChange={updateFiles} value={formData.images} localization={"RU-ru"} label="Выбрать изображения" footer={false}>
+          <Dropzone
+            onChange={updateFiles}
+            value={formData.images}
+            localization={"RU-ru"}
+            label="Выбрать изображения"
+            footer={false}
+          >
             {formData.images.map((file, index) => (
-              <FileMosaic key={index} {...{
-                name: file.name || `${index+1}.png`,
-                imageUrl: file.file || file
-              }} preview darkMode />
+              <FileMosaic
+                key={index}
+                {...{
+                  name: file.name || `${index + 1}.png`,
+                  imageUrl: file.file || file,
+                }}
+                preview
+                darkMode
+              />
             ))}
           </Dropzone>
 
@@ -425,7 +442,9 @@ const NewCase = () => {
 
           <div>
             <p className="x16" style={{ marginBottom: "12px" }}>
-              {formData.type === "тур" ? "Участник" : 'Место проведения(Хедлайнер при выборе типа кейса "Тур")'}
+              {formData.type === "тур"
+                ? "Участник"
+                : 'Место проведения(Хедлайнер при выборе типа кейса "Тур")'}
             </p>
             <Input
               value={formData[inputinfo[2].name]}
@@ -463,7 +482,9 @@ const NewCase = () => {
 
           <div>
             <p className="x16" style={{ marginBottom: "12px" }}>
-              {formData.type === "тур" ? "Вместимость людей" : 'Гости(Общая протяженность при выборе типа кейса "Тур")'}
+              {formData.type === "тур"
+                ? "Вместимость людей"
+                : 'Гости(Общая протяженность при выборе типа кейса "Тур")'}
             </p>
             <Input
               value={formData[inputinfo[3].name]}
@@ -581,10 +602,10 @@ const NewCase = () => {
                       />
                     }
                     label={
-                      <div
-                        className="alignCenter"
-                      >
-                        <Tooltip title={<span className="tooltip">{item.name}</span>}>
+                      <div className="alignCenter">
+                        <Tooltip
+                          title={<span className="tooltip">{item.name}</span>}
+                        >
                           <video
                             src={`${item.video}`}
                             alt={item.name}
@@ -629,15 +650,17 @@ const NewCase = () => {
                     }
                     label={
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <Tooltip title={<span className="tooltip">{item.title1}</span>}>
-                        <video
-                          src={`${item.video}`}
-                          alt={index}
-                          style={{ width: 80, height: 80, marginRight: 8 }}
-                          controls
+                        <Tooltip
+                          title={<span className="tooltip">{item.title1}</span>}
                         >
-                          Your browser does not support the video tag.
-                        </video>
+                          <video
+                            src={`${item.video}`}
+                            alt={index}
+                            style={{ width: 80, height: 80, marginRight: 8 }}
+                            controls
+                          >
+                            Ваш браузер не поддерживает тег видео.
+                          </video>
                         </Tooltip>
                       </div>
                     }

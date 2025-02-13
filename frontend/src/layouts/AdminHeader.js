@@ -58,7 +58,7 @@ const AdminHeader = () => {
 
   const handleLogout = () => {
     logout().then(() => {
-      navigate.push("/");
+      navigate.push("/admin");
     });
   };
 

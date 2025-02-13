@@ -1,4 +1,4 @@
-# Base image
+GNU nano 7.2                                                                                                      Dockerfile                                                                                                               # Base image
 FROM php:8.2-fpm
 
 # Set working directory
@@ -7,6 +7,7 @@ WORKDIR /var/www
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
+    ffmpeg \
     unzip \
     libpq-dev \
     libonig-dev \
@@ -14,6 +15,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     curl \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
+
+# Set PHP upload limits
+RUN echo "upload_max_filesize = 2048M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 2048M" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

@@ -19,15 +19,14 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
 const NewSite = () => {
-  
   const [loading, setLoading] = useState(false);
 
   const searchParams = useSearchParams();
-  
+
   // Helper function to parse the initial data from URL parameters
   const getInitialData = () => {
     if (!searchParams.size) return null;
-    
+
     let data = {};
     searchParams.forEach((value, key) => {
       try {
@@ -141,26 +140,28 @@ const NewSite = () => {
         "Рестораны",
         "Конференц залы",
         "Загородные площадки",
-        "Концертные залы"
+        "Концертные залы",
       ],
     },
     {
       title: "Meta Title",
       name: "title",
       type: "text",
-      placeholder: "Meta Title",
+      placeholder:
+        "Заголовок страницы для поисковых систем. Рекомендуется не более 250 символов.",
     },
     {
       title: "Meta Keyword",
       name: "keyword",
       type: "text",
-      placeholder: "Meta Keyword",
+      placeholder: "Список ключевых слов через запятую для поисковых систем.",
     },
     {
       title: "Meta Description",
       name: "description",
       type: "text",
-      placeholder: "Meta Description",
+      placeholder:
+        "Краткое описание страницы для поисковых систем. Рекомендуется не более 250 символов.",
     },
   ];
 
@@ -207,10 +208,9 @@ const NewSite = () => {
       } else if (key === "blog_type") {
         newFormData.append("blog_type[]", formData[key]);
       } else if (key === "siteTags") {
-          newFormData.append("siteTags", JSON.stringify(siteTags))
+        newFormData.append("siteTags", JSON.stringify(siteTags));
       } else if (key === "video") {
         newFormData.append("video", formData[key]);
-      
       } else {
         newFormData.append(key, formData[key]);
       }
@@ -234,12 +234,13 @@ const NewSite = () => {
   };
 
   const [siteTags, setSiteTags] = useState([]);
-  const [siteTagName, setSiteTagName] = useState('');
-  const [siteTagCapacity, setSiteTagCapacity] = useState('');
-  const [editingIndex, setEditingIndex] = useState(null);  // For tracking the tag being edited
+  const [siteTagName, setSiteTagName] = useState("");
+  const [siteTagCapacity, setSiteTagCapacity] = useState("");
+  const [editingIndex, setEditingIndex] = useState(null); // For tracking the tag being edited
 
   const handleAddTag = () => {
-    if (editingIndex !== null) { // If editing an existing tag
+    if (editingIndex !== null) {
+      // If editing an existing tag
       const updatedTags = siteTags.map((tag, index) =>
         index === editingIndex
           ? { ...tag, name: siteTagName, capacity: siteTagCapacity }
@@ -247,13 +248,17 @@ const NewSite = () => {
       );
       setSiteTags(updatedTags);
       setEditingIndex(null); // Clear editing index after updating
-    } else { // Adding a new tag
+    } else {
+      // Adding a new tag
       if (siteTagName && siteTagCapacity) {
-        setSiteTags([...siteTags, { name: siteTagName, capacity: siteTagCapacity }]);
+        setSiteTags([
+          ...siteTags,
+          { name: siteTagName, capacity: siteTagCapacity },
+        ]);
       }
     }
-    setSiteTagName('');
-    setSiteTagCapacity('');
+    setSiteTagName("");
+    setSiteTagCapacity("");
   };
 
   const handleEditTag = (index) => {
@@ -285,7 +290,7 @@ const NewSite = () => {
           )}
 
           {inputinfo?.map((item, index) => {
-            if (index === 5 || index === 6 || index === 7 || index === 8 ) {
+            if (index === 5 || index === 6 || index === 7 || index === 8) {
               // Skip this index.
               return null;
             }
@@ -308,7 +313,7 @@ const NewSite = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        placeholder="Click to Add more"
+                        placeholder="Выберите тип площадки"
                         className="InputText x14 alignCenter"
                         sx={{ backgroundColor: "white" }}
                       />
@@ -335,7 +340,7 @@ const NewSite = () => {
 
           <Box sx={{ width: "100%" }}>
             <Typography variant="x16" style={{ textTransform: "uppercase" }}>
-              Теги площадки
+              Разделы, где будет отображена площадка
             </Typography>
             <Autocomplete
               multiple
@@ -445,7 +450,7 @@ const NewSite = () => {
                   value={siteTagName}
                   onChange={(e) => setSiteTagName(e.target.value)}
                 />
-                
+
                 <input
                   className="InputText x16 alignCenter"
                   style={{ marginLeft: "12px", width: "50%" }}
@@ -455,14 +460,26 @@ const NewSite = () => {
                   onChange={(e) => setSiteTagCapacity(e.target.value)}
                 />
               </div>
-              <button type="button" className="defaultButton" onClick={handleAddTag} style={{ marginBottom:"12px" }}>
-                {editingIndex !== null ? 'Сохранить изменения' : 'Добавить тег'}
+              <button
+                type="button"
+                className="defaultButton"
+                onClick={handleAddTag}
+                style={{ marginBottom: "12px" }}
+              >
+                {editingIndex !== null ? "Сохранить изменения" : "Добавить тег"}
               </button>
             </div>
             {siteTags.length > 0 ? (
               <ul className="x14" style={{ marginBottom: "12px" }}>
                 {siteTags.map((tag, index) => (
-                  <li key={index} style={{ display: 'flex', alignItems: 'center', margin: '8px 0' }}>
+                  <li
+                    key={index}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "8px 0",
+                    }}
+                  >
                     <input
                       className="InputText x16 alignCenter"
                       style={{ marginRight: "12px", width: "50%" }}
@@ -477,8 +494,21 @@ const NewSite = () => {
                       value={tag.capacity}
                       readOnly // Making input read-only to display value
                     />
-                    <button type="button" className="defaultButton" onClick={() => handleEditTag(index)} style={{ marginLeft: "8px" }}>Редактировать</button>
-                    <button type="button" onClick={() => handleDeleteTag(index)} style={{ marginLeft: "8px" }}>X</button>
+                    <button
+                      type="button"
+                      className="defaultButton"
+                      onClick={() => handleEditTag(index)}
+                      style={{ marginLeft: "8px" }}
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteTag(index)}
+                      style={{ marginLeft: "8px" }}
+                    >
+                      X
+                    </button>
                   </li>
                 ))}
               </ul>

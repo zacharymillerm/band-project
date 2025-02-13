@@ -19,6 +19,7 @@ export const insertRental = async (formdata) => {
     const response = await apiClient.post("/rental", formdata, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
       },
     });
 

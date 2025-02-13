@@ -10,19 +10,22 @@ if (!function_exists('convertVideoFormat')) {
     {
         try {
             Log::info('Converting video from ' . $inputPath . ' to ' . $outputPath);
+
             // Convert video using FFmpeg
-            FFMpeg::fromDisk('local')
+            FFMpeg::fromDisk('public')
                 ->open($inputPath)
                 ->export()
-                ->toDisk('local')
+                ->toDisk('public')
                 ->inFormat(new X264)
-                ->resize($width, $height) // Resize to 1280x720 (adjust as needed)
+                ->resize($width, $height)
                 ->save($outputPath);
-            
+
             Log::info('Converted video from ' . $inputPath . ' to ' . $outputPath);
 
-            return url('storage' . str_replace('/public', '', $outputPath)); // Return public URL of the converted file
+            // Return public URL of the converted file
+            return url('storage/' . $outputPath);
         } catch (\Exception $e) {
+            Log::error('Error converting video: ' . $e->getMessage());
             return 'Error: ' . $e->getMessage();
         }
     }
@@ -32,21 +35,32 @@ if (!function_exists('uploadVideoOrImage')) {
     function uploadVideoOrImage($file, $section = 'factory')
     {
         $storedUrl = '';
-        if (in_array(strtolower($file->getClientOriginalExtension()), ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm'])) {
+        $extension = strtolower($file->getClientOriginalExtension());
+
+        if (in_array($extension, ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm'])) {
             // Video format
             $videoName = time() . '.mp4';
             Log::info('videoName: ' . $videoName);
-            $videoPath = $file->storeAs('public/uploads/' . $section, $videoName);
-            $convertedPath = '/public/uploads/'. $section .'/converted_' . $videoName;
+
+            // Store the original uploaded video in the 'public' disk
+            $videoPath = $file->storeAs('uploads/' . $section, $videoName, 'public');
+
+            // Define the output path for the converted video
+            $convertedPath = 'uploads/' . $section . '/converted_' . $videoName;
+
             Log::info('videoPath: ' . $videoPath);
             Log::info('convertedPath: ' . $convertedPath);
 
+            // Convert the video format
             $storedUrl = convertVideoFormat($videoPath, $convertedPath);
+
             Log::info('storedUrl: ' . $storedUrl);
         } else {
             // Image format
-            $storedUrl = url('storage/' . $file->store('uploads/' . $section, 'public'));
+            $path = $file->store('uploads/' . $section, 'public');
+            $storedUrl = url('storage/' . $path);
         }
+
         return $storedUrl;
     }
 }

@@ -30,6 +30,17 @@
   margin: 90px 0;
 }
 
+.siteOneBadge {
+  width: 26%;
+  margin-top: 20pt;
+}
+
+@media (max-width: 576px) {
+  .siteOneBadge {
+    width: 100%;
+  }
+}
+
 .section1 {
   padding: 64px;
 }

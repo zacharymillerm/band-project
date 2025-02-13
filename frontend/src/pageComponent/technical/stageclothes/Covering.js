@@ -19,7 +19,6 @@ const Covering = () => {
           <div className="coveringBtn">
             <ArrowDefaultButton title="CДЕЛАТЬ РАСЧЁТ" />
           </div>
-          <ChichaBoxVideoCard video={Svideo07} onClick={handleOpen} />
         </Link>
       </div>
 
@@ -27,7 +26,7 @@ const Covering = () => {
         className="flexWrapBetween"
         style={{ marginTop: "30px", gap: "clamp(30px, 3.5vw, 40px)" }}
       >
-        <ChichaBoxVideoCard video={coveringVideo} onClick={handleOpen} />
+        <ChichaBoxVideoCard video={Svideo07} onClick={handleOpen} />
         <ChichaBoxRightCard
           content={
             <>

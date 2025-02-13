@@ -263,7 +263,7 @@ const NewEquip = () => {
                 setFormData({ ...formData, blog_type: newValue });
               }}
               renderInput={(params) => (
-                <TextField {...params} placeholder="Click to Add more" />
+                <TextField {...params} placeholder="Выберите тип площадки" />
               )}
             />
           </Box>
@@ -280,7 +280,7 @@ const NewEquip = () => {
                 setFormData({ ...formData, site_type: newValue });
               }}
               renderInput={(params) => (
-                <TextField {...params} placeholder="Click to Add more" />
+                <TextField {...params} placeholder="Выберите тип площадки" />
               )}
             />
           </Box>
