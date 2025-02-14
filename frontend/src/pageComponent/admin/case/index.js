@@ -444,7 +444,7 @@ const NewCase = () => {
 
           <div>
             <p className="x16" style={{ marginBottom: "12px" }}>
-              {formData.blog_type === "Typ" ? "Хедлайнер" : "Место проведения"}
+              {formData.blog_type === "Тур" ? "Хедлайнер" : "Место проведения"}
             </p>
             <Input
               value={formData[inputinfo[2].name]}
