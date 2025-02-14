@@ -191,7 +191,8 @@ video {
 }
 
 .sectionTitle {
-  margin-top: -5px;
+  margin-top: 0;
+  margin-bottom: 0;
   font-family: var(--font-russo-one);
   font-size: clamp(30px, 4vw, 58px);
   line-height: clamp(36.15px, 4vw, 69.89px);

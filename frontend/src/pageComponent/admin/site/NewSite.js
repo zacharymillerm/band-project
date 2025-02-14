@@ -440,7 +440,7 @@ const NewSite = () => {
 
           <div className="">
             <div>
-              <h2>Дополнительные мини-теги</h2>
+              <h2>Теги вместимости</h2>
               <div className="spaceAround X16" style={{ marginBottom: "16px" }}>
                 <input
                   className="InputText x16 alignCenter"
@@ -455,7 +455,7 @@ const NewSite = () => {
                   className="InputText x16 alignCenter"
                   style={{ marginLeft: "12px", width: "50%" }}
                   type="number"
-                  placeholder="Содержание тега"
+                  placeholder="Вместимость"
                   value={siteTagCapacity}
                   onChange={(e) => setSiteTagCapacity(e.target.value)}
                 />

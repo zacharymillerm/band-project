@@ -18,22 +18,24 @@ const SwiperSection = ({ displayType }) => {
     <section
       id="customerReviewSection"
       className="container"
-      style={{ paddingRight: 0 }}
+      // style={{ paddingRight: 0 }}
     >
-      <div className="sectionWrapper section2" style={{ paddingRight: 0 }}>
+      <div className="sectionWrapper section2">
         <div className="sectionHeader">
           <h2 className="sectionTitle">Нас рекомендуют</h2>
         </div>
         <Swiper
           modules={[Autoplay]}
           slidesPerView="auto"
+          style={{ transition: "transform 0.5s ease" }}
           spaceBetween={70}
-          // loop={true}
+          loop={true}
           pagination={{ clickable: true }}
           autoplay={{
-            delay: 2000,
+            delay: 3000,
             disableOnInteraction: false,
           }}
+          speed={600}
           breakpoints={{
             300: {
               spaceBetween: 30,

@@ -20,8 +20,16 @@ const PortfolioSection = () => {
   return (
     <div className="sectionWrapper">
       <div className="spaceBetween sectionHeader section2">
-        <h2 className="sectionTitle">Работаем на площадках</h2>
-        <div className="chichaShow">
+        <h2
+          className="sectionTitle"
+          style={{ display: "flex", alignItems: "center"}}
+        >
+          Работаем на площадках
+        </h2>
+        <div
+          className="chichaShow"
+          style={{ display: "flex", alignItems: "center" }}
+        >
           <ArrowDefaultButton
             title="все площадки"
             onClick={() => handleLink("/sites")}

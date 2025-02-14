@@ -1570,9 +1570,9 @@ const CatalogInfo = {
         option: [],
       },
       {
-        name: "venue",
+        name: "site_type",
         label: "Площадка",
-        label2: "Все площадки",
+        label2:"Все площадки",
         option: [],
       },
       {
@@ -1581,15 +1581,15 @@ const CatalogInfo = {
         label2: "Все города",
         option: [],
       },
-      // {
-      //   name: "equipment",
-      //   label: "Оборудование",
-      //   option: [],
-      // },
+      {
+        name: "equipment",
+        label: "Оборудование",
+        label2: "Все типы",
+        option: [],
+      },
       {
         name: "eventTitle",
         label: "Хедлайнер",
-        // lable2:"Все хейдлайнеры",
         label2:"Все хедлайнеры",
         option: [],
       },

@@ -6,6 +6,7 @@ import {
   LinkButton,
 } from "../Buttons";
 import { CardBadge, CardViewNumber, CaseCatalogCardBadge } from "../Badges";
+import { BigVideoBox } from "@/components/Boxes";
 import VideoPreview from "./UserCard/Preview/VideoPreview";
 import {
   coveringPlay,
@@ -99,56 +100,64 @@ const TextBlogCard = ({ item }) => (
 
 const VideoBlogCard = ({ item }) => {
   const [open, setOpen] = useState(false);
-  console.log('VideoBlogCard', item);
+  console.log("VideoBlogCard", item);
 
   const handleOpen = () => {
     setOpen(true);
   };
 
   const getFileType = (url) => {
-    const extension = url.split('.').pop().toLowerCase();
+    const extension = url.split(".").pop().toLowerCase();
     const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp"];
     const videoExtensions = ["mp4", "avi", "mov", "wmv", "flv", "mkv", "webm"];
 
     if (imageExtensions.includes(extension)) {
-        return "image";
+      return "image";
     } else if (videoExtensions.includes(extension)) {
-        return "video";
+      return "video";
     } else {
-        return "unknown";
+      return "unknown";
     }
-  }
+  };
   return (
     <>
       <div className="blogCard videoBlogCard">
         <h3>{item.title}</h3>
-        {item.video && getFileType(item.video) === 'video' && <div style={{ position: "relative" }}>
-          <video
-            style={{
-              width: "100%",
-              height: "clamp(168px, 15vw,201px)",
-              borderRadius: "5px",
-            }}
-          >
-            <source src={`${item.video}`} type="video/mp4" />
-          </video>
-          <Image
-            src={whitePlay}
-            onClick={handleOpen}
-            alt="whitePlay"
-            className="whitePlayImg"
-          />
-        </div>}
-        {item.video && getFileType(item.video) === 'image' && <div style={{ position: "relative" }}>
-          <Image
-            width={500} // Default width
-            height={300} // Default height
-            style={{ maxHeight: "clamp(168px, 15vw,201px)", width: "100%", height: "100%" }}
-            src={item.video}
-            alt={item.video}
-            unoptimized={true}
-          />
-        </div>}
+        {item.video && getFileType(item.video) === "video" && (
+          <div style={{ position: "relative" }}>
+            <video
+              style={{
+                width: "100%",
+                height: "clamp(168px, 15vw,201px)",
+                borderRadius: "5px",
+              }}
+            >
+              <source src={`${item.video}`} type="video/mp4" />
+            </video>
+            <Image
+              src={whitePlay}
+              onClick={handleOpen}
+              alt="whitePlay"
+              className="whitePlayImg"
+            />
+          </div>
+        )}
+        {item.video && getFileType(item.video) === "image" && (
+          <div style={{ position: "relative" }}>
+            <Image
+              width={500} // Default width
+              height={300} // Default height
+              style={{
+                maxHeight: "clamp(168px, 15vw,201px)",
+                width: "100%",
+                height: "100%",
+              }}
+              src={item.video}
+              alt={item.video}
+              unoptimized={true}
+            />
+          </div>
+        )}
         <p className="videoBlogCardDescription">{item.description}</p>
         <div>
           <a
@@ -246,6 +255,7 @@ const ChichaBoxRightCard = ({ content, width, height }) => (
 );
 
 const CaseCatalogCard = ({ type, item, onClick }) => {
+  // console.log(item)
   return (
     <div className="caseCatalogCard">
       {type !== "equipment" ? (
@@ -292,7 +302,7 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
             {
               <CaseCatalogCardBadge
                 label={
-                  item?.type === "тур"
+                  item?.blog_type.includes("Тур")
                     ? `${item?.cities.length} городов`
                     : item?.cities.length > 0 && item.cities[0]
                 }
@@ -312,7 +322,7 @@ const CaseCatalogCard = ({ type, item, onClick }) => {
             style={{ color: "white", gap: "5px" }}
           >
             <Image
-              src={item?.type === "тур" ? starIcon1 : positionIcon}
+              src={item?.blog_type.includes("Тур") ? starIcon1 : positionIcon}
               alt="caseCatalogIcon"
             />
             {item.venue && <p>{item.venue}</p>}

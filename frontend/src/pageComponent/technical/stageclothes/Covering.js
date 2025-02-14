@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-scroll";
 import { ArrowDefaultButton } from "@/components/Buttons";
-import { coveringVideo, Svideo07} from "@/assets";
+import { Svideo07} from "@/assets";
 import { ChichaBoxRightCard, ChichaBoxVideoCard } from "@/components/Cards";
 import VideoPreview from "@/components/Cards/UserCard/Preview/VideoPreview";
 
@@ -66,7 +66,7 @@ const Covering = () => {
           }
         />
       </div>
-      <VideoPreview open={open} setOpen={setOpen} avatar={coveringVideo} />
+      <VideoPreview open={open} setOpen={setOpen} avatar={Svideo07} />
     </section>
   );
 };

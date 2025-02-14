@@ -44,6 +44,7 @@ const NewCase = () => {
   useEffect(() => {
     getSite().then((data) => {
       setSite(data);
+      console.log(data)
     });
     getThrees().then((data) => {
       setDdata(data);
@@ -74,6 +75,7 @@ const NewCase = () => {
 
   // Get the data from URL parameters instead of localStorage
   const Data = getInitialData();
+
   const [formData, setFormData] = useState({
     cities: Data?.cities || [],
     name: Data?.name || "",
@@ -88,7 +90,7 @@ const NewCase = () => {
     // equipment: Data?.equipment || [],
     // equipment_type: Data?.equipment_type || [],
     video: { name: Data?.video } || {},
-    site_type: Data?.site_type || [],
+    site_type: Data?.name || "",
     images: Data?.images || [],
     eventTitle: Data?.eventTitle || "",
     title: Data?.title || "",
@@ -177,7 +179,7 @@ const NewCase = () => {
       type: "text",
       placeholder: "Частное",
       option: [
-        "Все виды мероприятия",
+        // "Все виды мероприятия",
         "Частное",
         "Тур",
         "Корпоративное",
@@ -185,7 +187,7 @@ const NewCase = () => {
       ],
     },
     {
-      title: 'Место проведения(Хедлайнер при выборе типа кейса "Тур")',
+      title: "Место проведения",
       name: "venue",
       type: "text",
       placeholder: "Введите данные места проведения",
@@ -200,7 +202,7 @@ const NewCase = () => {
       title: "Описание(особенности)",
       name: "features",
       type: "text",
-      placeholder: "Введите описание(Рекомендуется не более 500 символов.)",
+      placeholder: "Введите описание",
     },
     {
       title: "Meta Title",
@@ -442,13 +444,11 @@ const NewCase = () => {
 
           <div>
             <p className="x16" style={{ marginBottom: "12px" }}>
-              {formData.type === "тур"
-                ? "Участник"
-                : 'Место проведения(Хедлайнер при выборе типа кейса "Тур")'}
+              {formData.blog_type === "Typ" ? "Хедлайнер" : "Место проведения"}
             </p>
             <Input
               value={formData[inputinfo[2].name]}
-              item={inputinfo[2]}
+              item={formData.blog_type === "Тур" ? { ...inputinfo[2], placeholder: "Введите хедлайнера" } : inputinfo[2]}
               handleChange={handleChange}
               required={false}
             />
@@ -482,20 +482,20 @@ const NewCase = () => {
 
           <div>
             <p className="x16" style={{ marginBottom: "12px" }}>
-              {formData.type === "тур"
-                ? "Вместимость людей"
-                : 'Гости(Общая протяженность при выборе типа кейса "Тур")'}
+              {formData.blog_type === "Тур" ? "Общая протяженность" : "Гости"}
             </p>
             <Input
               value={formData[inputinfo[3].name]}
-              item={inputinfo[3]}
+              item={formData.blog_type === "Тур" ? { ...inputinfo[3], placeholder: "Введите общую протяженность" } : inputinfo[3]}
               handleChange={handleChange}
             />
           </div>
 
           <div>
             <p className="x16" style={{ marginBottom: "12px" }}>
-              Хедлайнер
+              {formData.blog_type === "Тур"
+                ? "Хедлайнер для фильтрации кейсов"
+                : "Хедлайнер"}
             </p>
             <Input
               value={formData[inputinfo[9].name]}

@@ -1,4 +1,3 @@
-GNU nano 7.2                                                                                                      Dockerfile                                                                                                               # Base image
 FROM php:8.2-fpm
 
 # Set working directory

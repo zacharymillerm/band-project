@@ -107,7 +107,7 @@ const CreateUser = () => {
       title: "пароль",
       name: "password",
       type: "text",
-      placeholder: "Входная пароль",
+      placeholder: "Пароль для входа",
     },
   ];
 

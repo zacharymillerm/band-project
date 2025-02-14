@@ -8,6 +8,7 @@ import { SearchInputBasic } from "@/components/Inputs";
 import { useRouter } from "next/navigation";
 
 const CaseCatalog = ({ type, catalogInfo }) => {
+
   useScrollToTop();
 
   const [cases, setCases] = useState([]);

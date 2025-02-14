@@ -161,7 +161,7 @@ const DetailSection = ({
             ...field,
             option: Array.from(
               new Set(data?.map((item) => item.equipment_names).flat())
-            ),
+            ).filter((name) => name !== null && name !== undefined),
           };
 
         case "site_type":
@@ -169,7 +169,7 @@ const DetailSection = ({
             ...field,
             option: Array.from(
               new Set(data?.map((item) => item.site_type).flat())
-            ),
+            ).filter((name) => name !== null && name !== undefined),
           };
         case "cities":
           return {
@@ -242,14 +242,9 @@ const DetailSection = ({
           item.blog_type.some((blog_type) =>
             blog_type.toUpperCase().includes(searchData.blog_type.toUpperCase())
           )) &&
-        (!searchData.site_type ||
-          item.site_type.some((site_type) =>
-            site_type.toUpperCase().includes(searchData.site_type.toUpperCase())
-          )) &&
+        (!searchData.site_type || item.site_type === searchData.site_type) &&
         (!searchData.default_site ||
-          searchData.default_site.every((default_site) =>
-            item.site_type.includes(default_site)
-          )) &&
+          item.site_type === searchData.default_site) &&
         (!searchData.type ||
           item.type.toUpperCase().includes(searchData.type.toUpperCase())) &&
         (!searchData.startDate ||
@@ -289,6 +284,8 @@ const DetailSection = ({
   };
 
   const reduceUsers = () => setSliceData(result.slice(0, 8));
+
+  // console.log(fieldData)
 
   return (
     <section className="flexWrapBetween">
