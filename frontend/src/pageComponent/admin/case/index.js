@@ -424,7 +424,7 @@ const NewCase = () => {
             <p className="x16" style={{ marginBottom: "12px" }}>
               Город проведения
             </p>
-            {formData[inputinfo[1].name] === "Тур" ? (
+            {formData.blog_type === "Тур" ? (
               <MultipleValueTextInput
                 className="InputText x14 alignCenter"
                 onItemAdded={handleItemAdded}
