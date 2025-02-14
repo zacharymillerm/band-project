@@ -1570,7 +1570,7 @@ const CatalogInfo = {
         option: [],
       },
       {
-        name: "site_type",
+        name: "site_name",
         label: "Площадка",
         label2:"Все площадки",
         option: [],

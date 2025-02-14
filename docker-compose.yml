@@ -35,12 +35,12 @@ services:
       - "8000:8000"
     networks:
       - app_network
-    command: bash -c "php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8000"
+    command: bash -c "composer install && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8000"
 
   next:
     build:
       context: ./frontend
-    command: bash -c "composer install && npm install && npm run build && npm start"
+    command: bash -c "npm install && npm run build && npm start"
     depends_on:
       - laravel
     volumes:

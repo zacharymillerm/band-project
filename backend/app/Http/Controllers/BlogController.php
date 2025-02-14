@@ -14,9 +14,10 @@ class BlogController extends Controller
     public function getBlogs()
     {
         try {
-            $blogs = Blog::orderBy('queue', 'desc')->get();
+            $blogs = Blog::with('site')->orderBy('queue', 'desc')->get();
             foreach ($blogs as $blog) {
                 $blog->equipment_names = $blog->equipment->pluck('name')->toArray();
+                $blog->site_name = $blog->site ? $blog->site->name : null;
             }
             return response()->json($blogs, 200);
         } catch (\Exception $e) {

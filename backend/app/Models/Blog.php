@@ -44,7 +44,7 @@ class Blog extends Model
         'cities' => 'array',
         'solution' => 'array',
         'blog_type' => 'array',
-        'site_type' => 'string',
+        'site_type' => 'array',
         'equipment_type' => 'array',
     ];
 

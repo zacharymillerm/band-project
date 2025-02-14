@@ -85,7 +85,7 @@ const DetailSection = ({
   const [selectedValues, setSelectedValues] = useState({});
   const [searchData, setSearchData] = useState({
     blog_type: "",
-    site_type: "",
+    site_name: "",
     startDate: "",
     venue: "",
     cities: "",
@@ -164,11 +164,11 @@ const DetailSection = ({
             ).filter((name) => name !== null && name !== undefined),
           };
 
-        case "site_type":
+        case "site_name":
           return {
             ...field,
             option: Array.from(
-              new Set(data?.map((item) => item.site_type).flat())
+              new Set(data?.map((item) => item.site_name).flat())
             ).filter((name) => name !== null && name !== undefined),
           };
         case "cities":
@@ -242,9 +242,9 @@ const DetailSection = ({
           item.blog_type.some((blog_type) =>
             blog_type.toUpperCase().includes(searchData.blog_type.toUpperCase())
           )) &&
-        (!searchData.site_type || item.site_type === searchData.site_type) &&
+        (!searchData.site_name || item.site_name === searchData.site_name) &&
         (!searchData.default_site ||
-          item.site_type === searchData.default_site) &&
+          item.site_name === searchData.default_site) &&
         (!searchData.type ||
           item.type.toUpperCase().includes(searchData.type.toUpperCase())) &&
         (!searchData.startDate ||

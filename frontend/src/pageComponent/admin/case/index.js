@@ -44,7 +44,6 @@ const NewCase = () => {
   useEffect(() => {
     getSite().then((data) => {
       setSite(data);
-      console.log(data)
     });
     getThrees().then((data) => {
       setDdata(data);
@@ -56,30 +55,37 @@ const NewCase = () => {
   const searchParams = useSearchParams();
 
   // Helper function to parse the initial data from URL parameters
+  // Helper function to parse the initial data from URL parameters
   const getInitialData = () => {
     if (!searchParams.size) return null;
 
     let data = {};
     searchParams.forEach((value, key) => {
       try {
-        // Try to parse JSON strings (for arrays)
-        data[key] = JSON.parse(value);
+        // Check if the key is 'cities' and handle it specifically
+        if (key === "cities") {
+          // Parse cities as JSON if it's a valid JSON string
+          data[key] = JSON.parse(value);
+        } else {
+          // Try to parse JSON strings (for arrays)
+          data[key] = JSON.parse(value);
+        }
       } catch {
         // If not JSON, use the value as is
         data[key] = value;
       }
     });
-    console.log(data);
     return data;
   };
 
   // Get the data from URL parameters instead of localStorage
   const Data = getInitialData();
+  console.log(Data);
 
   const [formData, setFormData] = useState({
     cities: Data?.cities || [],
     name: Data?.name || "",
-    blog_type: Data?.blog_type[0] || "частное",
+    blog_type: Data?.blog_type[0] || "Частное",
     startDate: Data?.startDate || "",
     endDate: Data?.endDate || "",
     guests: Data?.guests || "",
@@ -90,7 +96,7 @@ const NewCase = () => {
     // equipment: Data?.equipment || [],
     // equipment_type: Data?.equipment_type || [],
     video: { name: Data?.video } || {},
-    site_type: Data?.name || "",
+    site_type: Data?.site_type || [],
     images: Data?.images || [],
     eventTitle: Data?.eventTitle || "",
     title: Data?.title || "",
@@ -178,13 +184,7 @@ const NewCase = () => {
       name: "blog_type",
       type: "text",
       placeholder: "Частное",
-      option: [
-        // "Все виды мероприятия",
-        "Частное",
-        "Тур",
-        "Корпоративное",
-        "Городское",
-      ],
+      option: ["Частное", "Тур", "Корпоративное", "Городское"],
     },
     {
       title: "Место проведения",
@@ -448,7 +448,11 @@ const NewCase = () => {
             </p>
             <Input
               value={formData[inputinfo[2].name]}
-              item={formData.blog_type === "Тур" ? { ...inputinfo[2], placeholder: "Введите хедлайнера" } : inputinfo[2]}
+              item={
+                formData.blog_type === "Тур"
+                  ? { ...inputinfo[2], placeholder: "Введите хедлайнера" }
+                  : inputinfo[2]
+              }
               handleChange={handleChange}
               required={false}
             />
@@ -486,7 +490,14 @@ const NewCase = () => {
             </p>
             <Input
               value={formData[inputinfo[3].name]}
-              item={formData.blog_type === "Тур" ? { ...inputinfo[3], placeholder: "Введите общую протяженность" } : inputinfo[3]}
+              item={
+                formData.blog_type === "Тур"
+                  ? {
+                      ...inputinfo[3],
+                      placeholder: "Введите общую протяженность",
+                    }
+                  : inputinfo[3]
+              }
               handleChange={handleChange}
             />
           </div>
